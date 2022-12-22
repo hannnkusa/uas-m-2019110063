@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use App\Models\Account;
 use Illuminate\Http\Request;
+use DB;
 
 class AccountController extends Controller
 {
@@ -14,7 +15,9 @@ class AccountController extends Controller
      */
     public function index()
     {
-        //
+        // $accounts = Account::all();
+        $accounts = DB::table('accounts')->paginate(10);
+        return view('accounts.index', compact('accounts'));
     }
 
     /**
