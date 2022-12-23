@@ -8,4 +8,6 @@ use Illuminate\Database\Eloquent\Model;
 class Account extends Model
 {
     use HasFactory;
+    protected $guarded = [];
+    public $incrementing = false;
 }
