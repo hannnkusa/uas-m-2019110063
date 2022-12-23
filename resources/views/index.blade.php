@@ -11,7 +11,7 @@
             <div class="numbers">
               <p class="text-sm mb-0 text-capitalize font-weight-bold">Transactions</p>
               <h5 class="font-weight-bolder mb-0">
-                $53,000
+                {{ $transactions_count }}
                 <span class="text-success text-sm font-weight-bolder">+55%</span>
               </h5>
             </div>
@@ -33,7 +33,7 @@
             <div class="numbers">
               <p class="text-sm mb-0 text-capitalize font-weight-bold">Accounts</p>
               <h5 class="font-weight-bolder mb-0">
-                2,300
+                {{ $accounts_count }}
                 <span class="text-success text-sm font-weight-bolder">+3%</span>
               </h5>
             </div>
@@ -124,7 +124,7 @@
                 </div>
                 <p class="text-xs mt-1 mb-0 font-weight-bold">Accounts</p>
               </div>
-              <h4 class="font-weight-bolder">36K</h4>
+              <h4 class="font-weight-bolder">{{ $accounts_count }}</h4>
               <div class="progress w-75">
                 <div class="progress-bar bg-dark w-60" role="progressbar" aria-valuenow="60" aria-valuemin="0" aria-valuemax="100"></div>
               </div>
@@ -150,7 +150,7 @@
                 </div>
                 <p class="text-xs mt-1 mb-0 font-weight-bold">Clicks</p>
               </div>
-              <h4 class="font-weight-bolder">2m</h4>
+              <h4 class="font-weight-bolder">{{ $accounts_count + 10 }}</h4>
               <div class="progress w-75">
                 <div class="progress-bar bg-dark w-90" role="progressbar" aria-valuenow="90" aria-valuemin="0" aria-valuemax="100"></div>
               </div>
@@ -174,7 +174,7 @@
                 </div>
                 <p class="text-xs mt-1 mb-0 font-weight-bold">Transactions</p>
               </div>
-              <h4 class="font-weight-bolder">435$</h4>
+              <h4 class="font-weight-bolder">{{ $transactions_count }}</h4>
               <div class="progress w-75">
                 <div class="progress-bar bg-dark w-30" role="progressbar" aria-valuenow="30" aria-valuemin="0" aria-valuemax="100"></div>
               </div>
@@ -199,7 +199,7 @@
                 </div>
                 <p class="text-xs mt-1 mb-0 font-weight-bold">Items</p>
               </div>
-              <h4 class="font-weight-bolder">43</h4>
+              <h4 class="font-weight-bolder">2</h4>
               <div class="progress w-75">
                 <div class="progress-bar bg-dark w-50" role="progressbar" aria-valuenow="50" aria-valuemin="0" aria-valuemax="100"></div>
               </div>
@@ -235,7 +235,7 @@
             <h6>Transactions</h6>
             <p class="text-sm mb-0">
               <i class="fa fa-check text-info" aria-hidden="true"></i>
-              <span class="font-weight-bold ms-1">30 done</span> this month
+              <span class="font-weight-bold ms-1">{{ $transactions_count }} done</span> this month
             </p>
           </div>
           <div class="col-lg-6 col-5 my-auto text-end">
@@ -257,244 +257,64 @@
           <table class="table align-items-center mb-0">
             <thead>
               <tr>
-                <th class="text-uppercase text-secondary text-xxs font-weight-bolder opacity-7">Companies</th>
-                <th class="text-uppercase text-secondary text-xxs font-weight-bolder opacity-7 ps-2">Members</th>
-                <th class="text-center text-uppercase text-secondary text-xxs font-weight-bolder opacity-7">Budget</th>
+                <th class="text-uppercase text-secondary text-xxs font-weight-bolder opacity-7">Categories</th>
+                <th class="text-uppercase text-secondary text-xxs font-weight-bolder opacity-7 ps-2">Buyer</th>
+                <th class="text-center text-uppercase text-secondary text-xxs font-weight-bolder opacity-7">Nominal</th>
                 <th class="text-center text-uppercase text-secondary text-xxs font-weight-bolder opacity-7">Completion</th>
               </tr>
             </thead>
             <tbody>
+              @foreach ($transactions as $item)
               <tr>
                 <td>
                   <div class="d-flex px-2 py-1">
                     <div>
+                      @if ($item->kategori === 'Music')
+                      <img src="../assets/img/small-logos/logo-spotify.svg" class="avatar avatar-sm me-3" alt="xd">
+                      @elseif ($item->kategori === 'Animation')
+                      <img src="../assets/img/small-logos/logo-invision.svg" class="avatar avatar-sm me-3" alt="xd">
+                      @elseif ($item->kategori === 'Scrum')
+                      <img src="../assets/img/small-logos/logo-jira.svg" class="avatar avatar-sm me-3" alt="xd">
+                      @elseif ($item->kategori === 'Communication')
+                      <img src="../assets/img/small-logos/logo-slack.svg" class="avatar avatar-sm me-3" alt="xd">
+                      @elseif ($item->kategori === 'Developing')
+                      <img src="../assets/img/small-logos/logo-webdev.svg" class="avatar avatar-sm me-3" alt="xd">
+                      @elseif ($item->kategori === 'Design')
                       <img src="../assets/img/small-logos/logo-xd.svg" class="avatar avatar-sm me-3" alt="xd">
+                      @endif
                     </div>
                     <div class="d-flex flex-column justify-content-center">
-                      <h6 class="mb-0 text-sm">Soft UI XD Version</h6>
+                      <h6 class="mb-0 text-sm">{{ $item->kategori }}</h6>
                     </div>
                   </div>
                 </td>
                 <td>
                   <div class="avatar-group mt-2">
-                    <a href="javascript:;" class="avatar avatar-xs rounded-circle" data-bs-toggle="tooltip" data-bs-placement="bottom" title="Ryan Tompson">
-                      <img src="../assets/img/team-1.jpg" alt="team1">
-                    </a>
-                    <a href="javascript:;" class="avatar avatar-xs rounded-circle" data-bs-toggle="tooltip" data-bs-placement="bottom" title="Romina Hadid">
-                      <img src="../assets/img/team-2.jpg" alt="team2">
-                    </a>
-                    <a href="javascript:;" class="avatar avatar-xs rounded-circle" data-bs-toggle="tooltip" data-bs-placement="bottom" title="Alexander Smith">
-                      <img src="../assets/img/team-3.jpg" alt="team3">
-                    </a>
-                    <a href="javascript:;" class="avatar avatar-xs rounded-circle" data-bs-toggle="tooltip" data-bs-placement="bottom" title="Jessica Doe">
-                      <img src="../assets/img/team-4.jpg" alt="team4">
+                    <a href="{{ route('accounts.show', $item->account_id) }}" class="text-xs font-weight-bold">
+                      {{ $item->nama }}
                     </a>
                   </div>
                 </td>
                 <td class="align-middle text-center text-sm">
-                  <span class="text-xs font-weight-bold"> $14,000 </span>
+                  <span class="text-xs font-weight-bold"> Rp{{ number_format($item->nominal,0,',','.') }} </span>
                 </td>
+                @php
+                  $i = mt_rand(ceil(0/10) , floor(100/10))*10;
+                @endphp
                 <td class="align-middle">
                   <div class="progress-wrapper w-75 mx-auto">
                     <div class="progress-info">
                       <div class="progress-percentage">
-                        <span class="text-xs font-weight-bold">60%</span>
+                        <span class="text-xs font-weight-bold">{{ $i }}%</span>
                       </div>
                     </div>
                     <div class="progress">
-                      <div class="progress-bar bg-gradient-info w-60" role="progressbar" aria-valuenow="60" aria-valuemin="0" aria-valuemax="100"></div>
+                      <div class="progress-bar bg-gradient-info w-{{ $i }}" role="progressbar" aria-valuenow="{{ $i }}" aria-valuemin="0" aria-valuemax="100"></div>
                     </div>
                   </div>
                 </td>
               </tr>
-              <tr>
-                <td>
-                  <div class="d-flex px-2 py-1">
-                    <div>
-                      <img src="../assets/img/small-logos/logo-atlassian.svg" class="avatar avatar-sm me-3" alt="atlassian">
-                    </div>
-                    <div class="d-flex flex-column justify-content-center">
-                      <h6 class="mb-0 text-sm">Add Progress Track</h6>
-                    </div>
-                  </div>
-                </td>
-                <td>
-                  <div class="avatar-group mt-2">
-                    <a href="javascript:;" class="avatar avatar-xs rounded-circle" data-bs-toggle="tooltip" data-bs-placement="bottom" title="Romina Hadid">
-                      <img src="../assets/img/team-2.jpg" alt="team5">
-                    </a>
-                    <a href="javascript:;" class="avatar avatar-xs rounded-circle" data-bs-toggle="tooltip" data-bs-placement="bottom" title="Jessica Doe">
-                      <img src="../assets/img/team-4.jpg" alt="team6">
-                    </a>
-                  </div>
-                </td>
-                <td class="align-middle text-center text-sm">
-                  <span class="text-xs font-weight-bold"> $3,000 </span>
-                </td>
-                <td class="align-middle">
-                  <div class="progress-wrapper w-75 mx-auto">
-                    <div class="progress-info">
-                      <div class="progress-percentage">
-                        <span class="text-xs font-weight-bold">10%</span>
-                      </div>
-                    </div>
-                    <div class="progress">
-                      <div class="progress-bar bg-gradient-info w-10" role="progressbar" aria-valuenow="10" aria-valuemin="0" aria-valuemax="100"></div>
-                    </div>
-                  </div>
-                </td>
-              </tr>
-              <tr>
-                <td>
-                  <div class="d-flex px-2 py-1">
-                    <div>
-                      <img src="../assets/img/small-logos/logo-slack.svg" class="avatar avatar-sm me-3" alt="team7">
-                    </div>
-                    <div class="d-flex flex-column justify-content-center">
-                      <h6 class="mb-0 text-sm">Fix Platform Errors</h6>
-                    </div>
-                  </div>
-                </td>
-                <td>
-                  <div class="avatar-group mt-2">
-                    <a href="javascript:;" class="avatar avatar-xs rounded-circle" data-bs-toggle="tooltip" data-bs-placement="bottom" title="Romina Hadid">
-                      <img src="../assets/img/team-3.jpg" alt="team8">
-                    </a>
-                    <a href="javascript:;" class="avatar avatar-xs rounded-circle" data-bs-toggle="tooltip" data-bs-placement="bottom" title="Jessica Doe">
-                      <img src="../assets/img/team-1.jpg" alt="team9">
-                    </a>
-                  </div>
-                </td>
-                <td class="align-middle text-center text-sm">
-                  <span class="text-xs font-weight-bold"> Not set </span>
-                </td>
-                <td class="align-middle">
-                  <div class="progress-wrapper w-75 mx-auto">
-                    <div class="progress-info">
-                      <div class="progress-percentage">
-                        <span class="text-xs font-weight-bold">100%</span>
-                      </div>
-                    </div>
-                    <div class="progress">
-                      <div class="progress-bar bg-gradient-success w-100" role="progressbar" aria-valuenow="100" aria-valuemin="0" aria-valuemax="100"></div>
-                    </div>
-                  </div>
-                </td>
-              </tr>
-              <tr>
-                <td>
-                  <div class="d-flex px-2 py-1">
-                    <div>
-                      <img src="../assets/img/small-logos/logo-spotify.svg" class="avatar avatar-sm me-3" alt="spotify">
-                    </div>
-                    <div class="d-flex flex-column justify-content-center">
-                      <h6 class="mb-0 text-sm">Launch our Mobile App</h6>
-                    </div>
-                  </div>
-                </td>
-                <td>
-                  <div class="avatar-group mt-2">
-                    <a href="javascript:;" class="avatar avatar-xs rounded-circle" data-bs-toggle="tooltip" data-bs-placement="bottom" title="Ryan Tompson">
-                      <img src="../assets/img/team-4.jpg" alt="user1">
-                    </a>
-                    <a href="javascript:;" class="avatar avatar-xs rounded-circle" data-bs-toggle="tooltip" data-bs-placement="bottom" title="Romina Hadid">
-                      <img src="../assets/img/team-3.jpg" alt="user2">
-                    </a>
-                    <a href="javascript:;" class="avatar avatar-xs rounded-circle" data-bs-toggle="tooltip" data-bs-placement="bottom" title="Alexander Smith">
-                      <img src="../assets/img/team-4.jpg" alt="user3">
-                    </a>
-                    <a href="javascript:;" class="avatar avatar-xs rounded-circle" data-bs-toggle="tooltip" data-bs-placement="bottom" title="Jessica Doe">
-                      <img src="../assets/img/team-1.jpg" alt="user4">
-                    </a>
-                  </div>
-                </td>
-                <td class="align-middle text-center text-sm">
-                  <span class="text-xs font-weight-bold"> $20,500 </span>
-                </td>
-                <td class="align-middle">
-                  <div class="progress-wrapper w-75 mx-auto">
-                    <div class="progress-info">
-                      <div class="progress-percentage">
-                        <span class="text-xs font-weight-bold">100%</span>
-                      </div>
-                    </div>
-                    <div class="progress">
-                      <div class="progress-bar bg-gradient-success w-100" role="progressbar" aria-valuenow="100" aria-valuemin="0" aria-valuemax="100"></div>
-                    </div>
-                  </div>
-                </td>
-              </tr>
-              <tr>
-                <td>
-                  <div class="d-flex px-2 py-1">
-                    <div>
-                      <img src="../assets/img/small-logos/logo-jira.svg" class="avatar avatar-sm me-3" alt="jira">
-                    </div>
-                    <div class="d-flex flex-column justify-content-center">
-                      <h6 class="mb-0 text-sm">Add the New Pricing Page</h6>
-                    </div>
-                  </div>
-                </td>
-                <td>
-                  <div class="avatar-group mt-2">
-                    <a href="javascript:;" class="avatar avatar-xs rounded-circle" data-bs-toggle="tooltip" data-bs-placement="bottom" title="Ryan Tompson">
-                      <img src="../assets/img/team-4.jpg" alt="user5">
-                    </a>
-                  </div>
-                </td>
-                <td class="align-middle text-center text-sm">
-                  <span class="text-xs font-weight-bold"> $500 </span>
-                </td>
-                <td class="align-middle">
-                  <div class="progress-wrapper w-75 mx-auto">
-                    <div class="progress-info">
-                      <div class="progress-percentage">
-                        <span class="text-xs font-weight-bold">25%</span>
-                      </div>
-                    </div>
-                    <div class="progress">
-                      <div class="progress-bar bg-gradient-info w-25" role="progressbar" aria-valuenow="25" aria-valuemin="0" aria-valuemax="25"></div>
-                    </div>
-                  </div>
-                </td>
-              </tr>
-              <tr>
-                <td>
-                  <div class="d-flex px-2 py-1">
-                    <div>
-                      <img src="../assets/img/small-logos/logo-invision.svg" class="avatar avatar-sm me-3" alt="invision">
-                    </div>
-                    <div class="d-flex flex-column justify-content-center">
-                      <h6 class="mb-0 text-sm">Redesign New Online Shop</h6>
-                    </div>
-                  </div>
-                </td>
-                <td>
-                  <div class="avatar-group mt-2">
-                    <a href="javascript:;" class="avatar avatar-xs rounded-circle" data-bs-toggle="tooltip" data-bs-placement="bottom" title="Ryan Tompson">
-                      <img src="../assets/img/team-1.jpg" alt="user6">
-                    </a>
-                    <a href="javascript:;" class="avatar avatar-xs rounded-circle" data-bs-toggle="tooltip" data-bs-placement="bottom" title="Jessica Doe">
-                      <img src="../assets/img/team-4.jpg" alt="user7">
-                    </a>
-                  </div>
-                </td>
-                <td class="align-middle text-center text-sm">
-                  <span class="text-xs font-weight-bold"> $2,000 </span>
-                </td>
-                <td class="align-middle">
-                  <div class="progress-wrapper w-75 mx-auto">
-                    <div class="progress-info">
-                      <div class="progress-percentage">
-                        <span class="text-xs font-weight-bold">40%</span>
-                      </div>
-                    </div>
-                    <div class="progress">
-                      <div class="progress-bar bg-gradient-info w-40" role="progressbar" aria-valuenow="40" aria-valuemin="0" aria-valuemax="40"></div>
-                    </div>
-                  </div>
-                </td>
-              </tr>
+              @endforeach
             </tbody>
           </table>
         </div>
