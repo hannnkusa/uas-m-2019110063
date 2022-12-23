@@ -4,7 +4,8 @@ namespace App\Http\Controllers;
 
 use App\Models\Account;
 use Illuminate\Http\Request;
-use DB;
+use Illuminate\Support\Facades\DB;
+use Carbon\Carbon;
 
 class AccountController extends Controller
 {
@@ -15,8 +16,7 @@ class AccountController extends Controller
      */
     public function index()
     {
-        // $accounts = Account::all();
-        $accounts = DB::table('accounts')->paginate(10);
+        $accounts = DB::table('accounts')->orderByDesc('created_at')->paginate(10);
         return view('accounts.index', compact('accounts'));
     }
 
@@ -27,7 +27,7 @@ class AccountController extends Controller
      */
     public function create()
     {
-        //
+        return view('accounts.create');
     }
 
     /**
@@ -38,7 +38,20 @@ class AccountController extends Controller
      */
     public function store(Request $request)
     {
-        //
+        $validateData = $request->validate([
+            'nama' => 'required|max:255',
+            'jenis' => 'required|max:50',
+        ]);
+
+        $digits = 6;
+        $random = rand(pow(10, $digits - 1), pow(10, $digits) - 1);
+        $unix = $random . Carbon::now()->unix();
+        $validateData['id'] = $unix;
+
+        Account::create($validateData);
+
+        $request->session()->flash('success', "Successfully adding {$validateData['nama']}!");
+        return redirect()->route('accounts.index');
     }
 
     /**
@@ -49,7 +62,7 @@ class AccountController extends Controller
      */
     public function show(Account $account)
     {
-        //
+        return view('accounts.show', compact('account'));
     }
 
     /**
@@ -60,7 +73,7 @@ class AccountController extends Controller
      */
     public function edit(Account $account)
     {
-        //
+        return view('accounts.edit', compact('account'));
     }
 
     /**
@@ -72,7 +85,17 @@ class AccountController extends Controller
      */
     public function update(Request $request, Account $account)
     {
-        //
+        $rules = [
+            'nama' => 'required|max:255',
+            'jenis' => 'required|max:50',
+        ];
+
+        $validated = $request->validate($rules);
+
+        $account->update($validated);
+
+        $request->session()->flash('success', "Successfully Updated {$validated['nama']}");
+        return redirect()->route('accounts.index');
     }
 
     /**
@@ -83,6 +106,10 @@ class AccountController extends Controller
      */
     public function destroy(Account $account)
     {
-        //
+        $account->delete();
+        return redirect()->route('accounts.index')->with(
+            'success',
+            "Successfully deleting {$account['nama']}!"
+        );
     }
 }

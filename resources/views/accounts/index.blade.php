@@ -17,7 +17,7 @@
             <div>
               <h5 class="mb-0">All Accounts</h5>
             </div>
-            <a href="#" class="btn bg-gradient-primary btn-sm mb-0" type="button">+&nbsp; New Account</a>
+            <a href="{{ route('accounts.create') }}" class="btn bg-gradient-primary btn-sm mb-0" type="button">+&nbsp; New Account</a>
           </div>
         </div>
         <div class="card-body px-0 pt-0 pb-2">
@@ -46,7 +46,7 @@
                 @foreach ($accounts as $item)
                 <tr>
                   <td class="ps-4">
-                    <p class="text-xs font-weight-bold mb-0">{{ $item->id }}</p>
+                    <a href="{{ route('accounts.show', $item->id) }}" class="text-xs font-weight-bold mb-0">{{ $item->id }}</a>
                   </td>
                   <td>
                     <div>
@@ -60,10 +60,10 @@
                     <p class="text-xs font-weight-bold mb-0">{{ $item->jenis }}</p>
                   </td>
                   <td class="text-center">
-                    <a href="#" class="mx-3" data-bs-toggle="tooltip" data-bs-original-title="Edit account">
+                    <a href="{{ route('accounts.edit', $item->id) }}" class="mx-3" data-bs-toggle="tooltip" data-bs-original-title="Edit account">
                       <i class="fas fa-user-edit text-secondary"></i>
                     </a>
-                    <a href="#" class="mx-3" data-bs-toggle="tooltip" data-bs-original-title="Delete account">
+                    <a href="{{ route('accounts.destroy', $item->id) }}" data-method="delete" class="mx-3" data-bs-toggle="tooltip" data-bs-original-title="Delete account" rel="nofollow">
                       <i class="cursor-pointer fas fa-trash text-secondary"></i>
                     </a>
                   </td>
@@ -75,9 +75,10 @@
         </div>
       </div>
       {{ $accounts->links() }}
-      <!-- Current Page: {{ $accounts->currentPage() }}<br> -->
     </div>
   </div>
 </div>
 
+@endsection
+@section('script')
 @endsection
