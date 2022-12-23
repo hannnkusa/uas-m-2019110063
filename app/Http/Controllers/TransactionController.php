@@ -3,7 +3,9 @@
 namespace App\Http\Controllers;
 
 use App\Models\Transaction;
+use App\Models\Account;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\DB;
 
 class TransactionController extends Controller
 {
@@ -14,7 +16,8 @@ class TransactionController extends Controller
      */
     public function index()
     {
-        //
+        $transactions = DB::table('transactions')->orderByDesc('created_at')->paginate(10);
+        return view('transactions.index', compact('transactions'));
     }
 
     /**
@@ -24,7 +27,8 @@ class TransactionController extends Controller
      */
     public function create()
     {
-        //
+        $accounts = Account::all();
+        return view('transactions.create', compact('accounts'));
     }
 
     /**
@@ -35,7 +39,18 @@ class TransactionController extends Controller
      */
     public function store(Request $request)
     {
-        //
+        $validateData = $request->validate([
+            'kategori' => 'required|max:50',
+            'nominal' => 'required',
+            'tujuan' => 'required',
+            'account_id' => 'required',
+        ]);
+
+
+        Transaction::create($validateData);
+
+        $request->session()->flash('success', "{$validateData['tujuan']} Has Been Received and this id {$validateData['account_id']} will got notification!");
+        return redirect()->route('transactions.index');
     }
 
     /**
