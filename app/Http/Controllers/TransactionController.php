@@ -16,7 +16,7 @@ class TransactionController extends Controller
      */
     public function index()
     {
-        $transactions = DB::table('transactions')->orderByDesc('created_at')->paginate(10);
+        $transactions = DB::table('transactions')->join('accounts', 'transactions.account_id', '=', 'accounts.id')->orderByDesc('transactions.created_at')->paginate(10);
         return view('transactions.index', compact('transactions'));
     }
 
